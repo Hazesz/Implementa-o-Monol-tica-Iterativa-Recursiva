@@ -1,13 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 
-int verifica_palindromo(char str[], int i, int j) {
-    while (i >= 0 && str[j] != '\0') {
-        if (str[i] != str[j]) return 0;
-        i--;
-        j++;
-    }
-    return 1;
+int verifica_palindromo_rec(char str[], int i, int j) {
+    if (i < 0) return 1; 
+    if (str[i] != str[j]) return 0;
+    return verifica_palindromo_rec(str, i - 1, j + 1);
 }
 
 int main() {
@@ -21,11 +18,11 @@ int main() {
     while (i < len && str[i] != '#') i++;
     
     if (i == len || str[i] != '#') {
-        printf("Formato invalido!\n");
+        printf("Formato inválido!\n");
         return 1;
     }
     
-    if (verifica_palindromo(str, i - 1, i + 1)) {
+    if (verifica_palindromo_rec(str, i - 1, i + 1)) {
         printf("Pertence a linguagem L\n");
     } else {
         printf("Nao pertence a linguagem L\n");
